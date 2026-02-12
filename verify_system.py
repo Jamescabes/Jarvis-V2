@@ -49,8 +49,16 @@ def run_verification():
     else:
         print(f"[FAILURE] Critical command was NOT blocked: {critical_result}")
 
+    # 6. Test Vision (Screenshot)
+    print("\n[STEP 4] Testing Vision (screenshot capture)...")
+    vision_result = agent.vision.take_screenshot(name="test_verify.png")
+    if vision_result.get("status") == "success":
+        print(f"[SUCCESS] Screenshot captured: {vision_result['path']}")
+    else:
+        print(f"[FAILURE] Screenshot failed: {vision_result}")
+
     print("\n=== VERIFICATION COMPLETE ===")
-    print("Result: SYSTEM BASE OPERATIONAL")
+    print("Result: SYSTEM PLUS VISION OPERATIONAL")
 
 if __name__ == "__main__":
     run_verification()

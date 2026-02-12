@@ -4,3 +4,5 @@ pvporcupine
 pocketsphinx
 requests
 psutil
+pyautogui
+Pillow
