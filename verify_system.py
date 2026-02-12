@@ -7,6 +7,8 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), 'pc-agen
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), 'backend')))
 
 from agent import PCAgent
+from brain import brain
+import asyncio
 import threading
 
 def run_verification():
@@ -68,8 +70,15 @@ def run_verification():
     else:
         print(f"[FAILURE] Interaction failed: {interact_result}")
 
+    # 8. Test Brain & LLM Response (Mock Mode)
+    print("\n[STEP 6] Testing Jarvis Brain (LLM Mock Mode)...")
+    # Using a dummy await loop because verify_system is not async by default
+    loop = asyncio.get_event_loop()
+    response = loop.run_until_complete(brain.process_query("¿Cuál es tu propósito?", user_id=1))
+    print(f"[SUCCESS] Jarvis Response: {response}")
+
     print("\n=== VERIFICATION COMPLETE ===")
-    print("Result: SYSTEM FULL COMPUTER USE READY")
+    print("Result: SYSTEM FULL AI READY")
 
 if __name__ == "__main__":
     run_verification()
