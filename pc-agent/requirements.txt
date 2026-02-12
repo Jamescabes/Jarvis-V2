@@ -1,0 +1,5 @@
+pyaudio
+pvporcupine
+pocketsphinx
+requests
+psutil
