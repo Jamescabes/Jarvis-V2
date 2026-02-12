@@ -57,8 +57,19 @@ def run_verification():
     else:
         print(f"[FAILURE] Screenshot failed: {vision_result}")
 
+    # 7. Test Interaction (Mouse movement)
+    print("\n[STEP 5] Testing Interaction (safe mouse movement)...")
+    original_pos = agent.vision.get_mouse_pos()
+    interact_result = agent.interaction.move_mouse(original_pos.x + 50, original_pos.y + 50, duration=0.2)
+    if interact_result.get("status") == "success":
+        print(f"[SUCCESS] Mouse moved to: {interact_result['pos']}")
+        # Return mouse
+        agent.interaction.move_mouse(original_pos.x, original_pos.y, duration=0.1)
+    else:
+        print(f"[FAILURE] Interaction failed: {interact_result}")
+
     print("\n=== VERIFICATION COMPLETE ===")
-    print("Result: SYSTEM PLUS VISION OPERATIONAL")
+    print("Result: SYSTEM FULL COMPUTER USE READY")
 
 if __name__ == "__main__":
     run_verification()

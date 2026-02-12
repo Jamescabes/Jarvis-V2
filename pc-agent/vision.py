@@ -18,7 +18,8 @@ class VisionEngine:
         """
         try:
             if name is None:
-                name = f"screenshot_{int(time.time())}.png"
+                timestamp = time.strftime("%Y%m%d_%H%M%S")
+                name = f"jarvis_vision_{timestamp}.png"
             
             filepath = os.path.join(self.output_dir, name)
             screenshot = pyautogui.screenshot()

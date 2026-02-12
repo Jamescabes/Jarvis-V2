@@ -6,6 +6,7 @@ from executor import CommandExecutor
 
 from wakeword import WakeWordEngine
 from vision import VisionEngine
+from interaction import InteractionEngine
 
 class PCAgent:
     def __init__(self, server_url="http://localhost:8000"):
@@ -13,6 +14,7 @@ class PCAgent:
         self.executor = CommandExecutor()
         self.wakeword = WakeWordEngine(keyword="jarvis")
         self.vision = VisionEngine()
+        self.interaction = InteractionEngine()
         self.server_url = server_url
         self.agent_id = None # To be assigned by backend
         self.active_listening = False
