@@ -1,0 +1,60 @@
+{
+  "tokens": {
+    "color": {
+      "primary": {
+        "jarvisBlue": "#00E5FF",
+        "jarvisCyan": "#00B8D4"
+      },
+      "neutral": {
+        "blackDeep": "#0A0F14",
+        "surface": "#111827",
+        "surfaceElevated": "#1F2933",
+        "whiteTech": "#E6F7FF"
+      },
+      "chat": {
+        "incomingBubble": "#1F2933",
+        "outgoingBubble": "#003B44"
+      },
+      "state": {
+        "success": "#00E676",
+        "warning": "#FFD600",
+        "error": "#FF1744",
+        "active": "#00E5FF"
+      }
+    },
+    "spacing": {
+      "xs": 4,
+      "sm": 8,
+      "md": 16,
+      "lg": 24,
+      "xl": 32
+    },
+    "radius": {
+      "sm": 8,
+      "md": 12,
+      "lg": 20,
+      "full": 999
+    },
+    "typography": {
+      "fontFamily": "Inter",
+      "fontSize": {
+        "meta": 12,
+        "body": 14,
+        "subtitle": 16,
+        "title": 20,
+        "headline": 24
+      },
+      "fontWeight": {
+        "light": 300,
+        "regular": 400,
+        "medium": 500,
+        "semibold": 600
+      }
+    },
+    "shadow": {
+      "glowPrimary": "0 0 12px rgba(0,229,255,0.6)",
+      "glowDanger": "0 0 12px rgba(255,23,68,0.6)",
+      "card": "0 10px 30px rgba(0,0,0,0.4)"
+    }
+  }
+}
