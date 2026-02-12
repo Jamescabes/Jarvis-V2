@@ -21,6 +21,17 @@ class CommandExecutor:
         if risk == "critical" and not confirmed:
             return {"status": "warning", "message": "Action requires double confirmation"}
 
+        try:
+            result = subprocess.run(command, shell=True, capture_output=True, text=True)
+            return {
+                "status": "success" if result.returncode == 0 else "error",
+                "stdout": result.stdout,
+                "stderr": result.stderr,
+                "returncode": result.returncode
+            }
+        except Exception as e:
+            return {"status": "error", "message": str(e)}
+
     def get_system_info(self):
         return {
             "os": self.os_type,

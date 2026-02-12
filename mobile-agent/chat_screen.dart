@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'theme.dart';
+import 'websocket_client.dart';
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({super.key});
@@ -13,8 +12,20 @@ class _ChatScreenState extends State<ChatScreen> {
     {'text': 'Señor, el sistema está operativo. ¿En qué puedo ayudarle?', 'isJarvis': true},
   ];
 
+  late JarvisWebSocket _socket;
+  final TextEditingController _controller = TextEditingController();
+
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
+    _socket = JarvisWebSocket(url: 'ws://localhost:8000/ws');
+    _socket.onMessage = (msg) {
+      setState(() {
+        _messages.add({'text': msg, 'isJarvis': true});
+      });
+    };
+    _socket.connect();
+  }
     return Scaffold(
       appBar: AppBar(
         title: const Text('Jarvis', style: TextStyle(color: JarvisTheme.primary, fontWeight: FontWeight.bold)),
@@ -51,6 +62,24 @@ class _ChatScreenState extends State<ChatScreen> {
     );
   }
 
+  void _sendMessage() {
+    if (_controller.text.isNotEmpty) {
+      String text = _controller.text;
+      setState(() {
+        _messages.add({'text': text, 'isJarvis': false});
+      });
+      _socket.sendMessage(text);
+      _controller.clear();
+    }
+  }
+
+  @override
+  void dispose() {
+    _socket.dispose();
+    _controller.dispose();
+    super.dispose();
+  }
+
   Widget _buildInputArea() {
     return Container(
       padding: const EdgeInsets.all(16),
@@ -59,6 +88,8 @@ class _ChatScreenState extends State<ChatScreen> {
         children: [
           Expanded(
             child: TextField(
+              controller: _controller,
+              onSubmitted: (_) => _sendMessage(),
               decoration: InputDecoration(
                 hintText: 'Diga algo, señor...',
                 fillColor: JarvisTheme.blackDeep,
@@ -71,8 +102,8 @@ class _ChatScreenState extends State<ChatScreen> {
           CircleAvatar(
             backgroundColor: JarvisTheme.primary,
             child: IconButton(
-              icon: const Icon(Icons.mic, color: Colors.black),
-              onPressed: () {},
+              icon: const Icon(Icons.send, color: Colors.black),
+              onPressed: _sendMessage,
             ),
           ),
         ],

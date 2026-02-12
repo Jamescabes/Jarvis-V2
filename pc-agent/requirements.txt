@@ -1,4 +1,5 @@
-pyaudio
+sounddevice
+numpy
 pvporcupine
 pocketsphinx
 requests

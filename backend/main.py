@@ -53,10 +53,19 @@ async def create_user(user: schemas.UserCreate, db: AsyncSession = Depends(datab
 async def read_users_me(current_user: models.User = Depends(get_current_user)):
     return current_user
 
+from .brain import brain
+
 @app.websocket("/ws")
 async def websocket_endpoint(websocket: WebSocket):
     await websocket.accept()
-    # TODO: Add authentication for websocket
-    while True:
-        data = await websocket.receive_text()
-        await websocket.send_text(f"Message received: {data}")
+    # TODO: Add real authentication for websocket
+    try:
+        while True:
+            data = await websocket.receive_text()
+            # Process query through Jarvis Brain
+            response = await brain.process_query(data, user_id=1) # Mock User ID
+            await websocket.send_text(response)
+    except Exception as e:
+        print(f"WebSocket error: {e}")
+    finally:
+        await websocket.close()
